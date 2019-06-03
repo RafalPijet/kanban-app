@@ -30,8 +30,34 @@ export function deleteLane(req, res) {
     if (err) {
       res.status(500).send(err);
     }
+    lane.notes.map(note => {
+      note.remove();
+    });
     lane.remove(() => {
       res.status(200).end();
     });
   });
+}
+
+export function updateLane(req, res) {
+  const updateLaneName = () => new Promise(resolve => resolve(
+    Lane.findOne({ id: req.params.laneId })
+      .then(lane => {
+        lane.name = req.body.name;
+        lane.save((err, updated) => {
+          if (err) {
+            res.status(500).send(err);
+          }
+          res.json(updated);
+        });
+      })
+      .catch(() => {
+        res.status(400).send(`Don't found lane with id: ${req.params.laneId}`);
+      })
+  ));
+  if (!req.body.name) {
+    res.status(403).end();
+  } else {
+    updateLaneName();
+  }
 }
