@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Edit.css';
 
@@ -20,7 +20,7 @@ export default class Edit extends Component {
   renderValue = () => {
     const { value, onDelete, onValueClick } = this.props;
     return (
-      <div>
+      <div className={styles.lane}>
         <span className={styles.value} onClick={onValueClick}>{value}</span>
         {onDelete ? this.renderDelete() : null}
       </div>

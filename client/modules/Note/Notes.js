@@ -6,7 +6,7 @@ import Edit from '../../components/Edit';
 
 const Notes = ({ notes, laneId, editNote, updateNote, deleteNote }) => {
   return (
-    <ul className="notes">{notes.map(note =>
+    <ul className={styles.Notes}>{notes.map(note =>
       <Note id={note.id} key={note.id} editing={note.editing}>
         <Edit
           editing={note.editLane}

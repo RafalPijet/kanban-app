@@ -1,0 +1,22 @@
+.value {
+  font-size: 18px;
+  cursor: text;
+}
+
+.lane {
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.delete {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0 5px;
+  margin-left: 10px;
+  height: 25px;
+  width: 25px;
+}

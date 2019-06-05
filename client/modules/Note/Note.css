@@ -1,1 +1,8 @@
-/* Note styles */
+.Note {
+  list-style: none;
+}
+
+.Notes {
+  border-top: 1px solid #fff;
+  padding-top: 15px;
+}

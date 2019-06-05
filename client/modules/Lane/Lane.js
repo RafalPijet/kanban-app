@@ -11,19 +11,19 @@ const Lane = props => {
     <div className={styles.Lane}>
       <div className={styles.LaneHeader}>
         <div className={styles.LaneAddNote}>
-          <button onClick={() => addNote({ task: 'New Note' }, laneId)}>Add Note</button>
+          <button className={styles.button} onClick={() => addNote({ task: 'New Note' }, laneId)}>Add Note</button>
         </div>
-        <Edit
-          className={styles.LaneName}
-          editing={lane.editing}
-          value={lane.name}
-          onValueClick={() => editLane(lane.id)}
-          onUpdate={name => updateLane({ ...lane, name, editing: false })}
-        />
         <div className={styles.LaneDelete}>
-          <button onClick={() => deleteLane(laneId)}>Remove Lane</button>
+          <button className={styles.button} onClick={() => deleteLane(laneId)}>Remove Lane</button>
         </div>
       </div>
+      <Edit
+        className={styles.LaneName}
+        editing={lane.editing}
+        value={lane.name}
+        onValueClick={() => editLane(lane.id)}
+        onUpdate={name => updateLane({ ...lane, name, editing: false })}
+      />
       <NotesContainer
         notes={laneNotes}
         laneId={laneId}
