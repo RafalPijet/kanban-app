@@ -1,40 +1,33 @@
 // Import Actions
-import { CREATE_LANE, UPDATE_LANE, DELETE_LANE, EDIT_LANE } from './LaneActions';
+import { CREATE_LANE, UPDATE_LANE, DELETE_LANE, EDIT_LANE, CREATE_LANES } from './LaneActions';
 import { CREATE_NOTE, DELETE_NOTE } from '../Note/NoteActions';
-
+import omit from 'lodash/omit';
 // Initial State
-const initialState = [];
+const initialState = {};
 
 const lanes = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_LANE:
-      return [...state, action.lane];
     case UPDATE_LANE:
-      return state.map(lane => {
-        return lane.id === action.id ? { ...lane, ...action.laneId } : lane;
-      });
+      return { ...state, [action.lane.id]: action.lane };
     case DELETE_LANE:
-      return state.filter(lane => lane.id !== action.id);
-    case EDIT_LANE:
-      return state.map(lane => {
-        return lane.id === action.id ? { editing: true } : { editing: false };
-      });
-    case CREATE_NOTE:
-      return state.map(lane => {
-        if (lane.id === action.laneId) {
-          const notes = [...lane.notes, action.note.id];
-          return { ...lane, notes };
-        }
-        return lane;
-      });
-    case DELETE_NOTE:
-      return state.map(lane => {
-        if (lane.id === action.laneId) {
-          const notes = lane.notes.filter(note => note.noteId !== action.noteId);
-          return { ...lane, notes };
-        }
-        return lane;
-      });
+      return omit(state, action.laneId);
+    case EDIT_LANE: {
+      const lane = { ...state[action.id], editing: true };
+      return { ...state, [action.id]: lane };
+    }
+    case CREATE_LANES:
+      return { ...action.lanes };
+    case CREATE_NOTE: {
+      const newLane = { ...state[action.laneId] };
+      newLane.notes = newLane.notes.concat(action.note.id);
+      return { ...state, [action.laneId]: newLane };
+    }
+    case DELETE_NOTE: {
+      const newLane = { ...state[action.laneId] };
+      newLane.notes = newLane.notes.filter(noteId => noteId !== action.noteId);
+      return { ...state, [action.laneId]: newLane };
+    }
     default:
       return state;
   }
