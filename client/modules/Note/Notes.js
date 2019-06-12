@@ -6,9 +6,9 @@ import Edit from '../../components/Edit';
 
 const Notes = ({ notes, laneId, editNote, updateNote, deleteNote, moveWithinLane }) => (
   <ul className={styles.Notes}>{notes.map(note =>
-    <Note id={note.id} key={note.id} laneId={laneId} moveWithinLane={moveWithinLane}>
+    <Note id={note.id} key={note.id} editing={note.editing} laneId={laneId} moveWithinLane={moveWithinLane}>
       <Edit
-        editing={note.editLane}
+        editing={note.editing}
         value={note.task}
         onValueClick={() => editNote(note.id)}
         onUpdate={task => updateNote({

@@ -40,7 +40,7 @@ export function updateNote(note) {
 
 export function updateNoteRequest(note, laneId) {
   return (dispatch) => {
-    return callApi('notes/:laneId&:noteId', 'put', { note, laneId })
+    return callApi(`notes/${laneId}&${note.id}`, 'put', { note, laneId })
       .then(updatedNote => {
         dispatch(updateNote(updatedNote));
       });
@@ -56,8 +56,9 @@ export function deleteNote(noteId, laneId) {
 }
 
 export function deleteNoteRequest(noteId, laneId) {
+  console.log(`${laneId} : ${noteId}`);
   return (dispatch) => {
-    return callApi('notes/:laneId&:noteId', 'delete', { noteId, laneId })
+    return callApi(`notes/${laneId}&${noteId}`, 'delete')
       .then(res => {
         if (res.status === 200) {
           dispatch(deleteNote(noteId, laneId));

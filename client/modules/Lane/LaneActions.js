@@ -37,7 +37,7 @@ export function updateLane(lane) {
 
 export function updateLaneRequest(lane) {
   return (dispatch) => {
-    return callApi('lanes/:lanesId', 'put', lane).then(res => {
+    return callApi(`lanes/${lane.id}`, 'put', lane).then(res => {
       dispatch(updateLane(res));
     });
   };
@@ -52,7 +52,7 @@ export function deleteLane(laneId) {
 
 export function deleteLaneRequest(laneId) {
   return (dispatch) => {
-    return callApi('lanes/:laneId', 'delete', laneId).then(res => {
+    return callApi(`lanes/${laneId}`, 'delete').then(res => {
       if (res.status === 200) {
         dispatch(deleteLane(laneId));
       }
