@@ -9,6 +9,7 @@ export const UPDATE_LANE = 'UPDATE_LANE';
 export const DELETE_LANE = 'DELETE_LANE';
 export const EDIT_LANE = 'EDIT_LANE';
 export const MOVE_BETWEEN_LANE = 'MOVE_BETWEEN_LANE';
+
 // Export Actions
 export function createLane(lane) {
   return {
@@ -16,15 +17,16 @@ export function createLane(lane) {
     lane: {
       notes: [],
       ...lane,
-    }
+    },
   };
 }
 
 export function createLaneRequest(lane) {
   return (dispatch) => {
-    return callApi('lanes', 'post', lane).then(res => {
-      dispatch(createLane(res));
-    });
+    return callApi('lanes', 'post', lane)
+      .then(res => {
+        dispatch(createLane(res));
+      });
   };
 }
 
@@ -37,9 +39,10 @@ export function updateLane(lane) {
 
 export function updateLaneRequest(lane) {
   return (dispatch) => {
-    return callApi(`lanes/${lane.id}`, 'put', lane).then(res => {
-      dispatch(updateLane(res));
-    });
+    return callApi(`lanes/${lane.id}`, 'put', lane)
+      .then(res => {
+        dispatch(updateLane(res));
+      });
   };
 }
 
@@ -52,11 +55,10 @@ export function deleteLane(laneId) {
 
 export function deleteLaneRequest(laneId) {
   return (dispatch) => {
-    return callApi(`lanes/${laneId}`, 'delete').then(res => {
-      if (res.status === 200) {
+    return callApi(`lanes/${laneId}`, 'delete')
+      .then(() => {
         dispatch(deleteLane(laneId));
-      }
-    });
+      });
   };
 }
 
@@ -76,12 +78,13 @@ export function createLanes(lanesData) {
 
 export function fetchLanes() {
   return (dispatch) => {
-    return callApi('lanes').then(res => {
-      const normalized = normalize(res.lanes, lanes);
-      const { lanes: normalizedLanes, notes } = normalized.entities;
-      dispatch(createLanes(normalizedLanes));
-      dispatch(createNotes(notes));
-    });
+    return callApi('lanes')
+      .then(res => {
+        const normalized = normalize(res.lanes, lanes);
+        const { lanes: normalizedLanes, notes } = normalized.entities;
+        dispatch(createLanes(normalizedLanes));
+        dispatch(createNotes(notes));
+      });
   };
 }
 
@@ -93,4 +96,3 @@ export function moveBetweenLanes(targetLaneId, noteId, sourceLaneId) {
     sourceLaneId,
   };
 }
-

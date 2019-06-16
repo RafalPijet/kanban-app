@@ -64,8 +64,8 @@ export function updateNote(req, res) {
   ));
   checkTargetNote()
     .then(() => {
-      if (targetNote !== null && req.body.task.length > 0) {
-        targetNote.task = req.body.task;
+      if (targetNote !== null && req.body.note.task.length > 0) {
+        targetNote.task = req.body.note.task;
         targetNote.save((err, updated) => {
           if (err) {
             res.status(500).end();

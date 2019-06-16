@@ -7,6 +7,7 @@ export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const EDIT_NOTE = 'EDIT_NOTE';
 export const MOVE_WITHIN_LANE = 'MOVE_NOTES';
+
 // Export Actions
 export function createNote(note, laneId) {
   return {
@@ -18,9 +19,10 @@ export function createNote(note, laneId) {
 
 export function createNoteRequest(note, laneId) {
   return (dispatch) => {
-    return callApi('notes', 'post', { note, laneId }).then(resNote => {
-      dispatch(createNote(resNote, laneId));
-    });
+    return callApi('notes', 'post', { note, laneId })
+      .then(resNote => {
+        dispatch(createNote(resNote, laneId));
+      });
   };
 }
 
@@ -56,13 +58,10 @@ export function deleteNote(noteId, laneId) {
 }
 
 export function deleteNoteRequest(noteId, laneId) {
-  console.log(`${laneId} : ${noteId}`);
   return (dispatch) => {
     return callApi(`notes/${laneId}&${noteId}`, 'delete')
-      .then(res => {
-        if (res.status === 200) {
-          dispatch(deleteNote(noteId, laneId));
-        }
+      .then(() => {
+        dispatch(deleteNote(noteId, laneId));
       });
   };
 }

@@ -34,7 +34,7 @@ export function deleteLane(req, res) {
       note.remove();
     });
     lane.remove(() => {
-      res.status(200).end();
+      res.status(200).send({});
     });
   });
 }
