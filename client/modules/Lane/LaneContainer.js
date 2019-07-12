@@ -21,7 +21,6 @@ const noteTarget = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps.lane.notes);
   return {
     laneNotes: ownProps.lane.notes.map(noteId => state.notes[noteId])
   };
